@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { User } from '../models/users';
 import {Observable} from "rxjs";
+import { Repo } from '../models/repos';
 
 /*
  Generated class for the GithubUsers provider.
@@ -19,6 +20,9 @@ export class GithubUsers {
         // console.log('Hello GithubUsers Provider');
     }
 
+    /*
+    Users
+     */
     // Load all github users
     load(): Observable<User[]> {
         return this.http.get(`${this.githubApiUrl}/users`)
@@ -35,5 +39,14 @@ export class GithubUsers {
     searchUsers(searchParam: string): Observable<User[]> {
         return this.http.get(`${this.githubApiUrl}/search/users?q=${searchParam}`)
             .map(res => <User[]>(res.json().items))
+    }
+
+    /*
+    Repos
+     */
+    // Load all github repositories
+    loadRepos(): Observable<Repo[]> {
+        return this.http.get(`${this.githubApiUrl}/repositories`)
+            .map(res => <Repo[]>res.json());
     }
 }

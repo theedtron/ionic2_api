@@ -10,11 +10,19 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Repos
+      Repositories
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Repos view page</h3>
+
+  <ion-searchbar></ion-searchbar>
+  <ion-list>
+    <button ion-item *ngFor="let repo of reposits">
+      <h2>{{ repo.full_name }}</h2>
+      <p>{{ repo.description }}</p>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </button>
+  </ion-list>
 </ion-content>

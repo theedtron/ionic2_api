@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Repo } from '../../models/repos';
+import { GithubUsers } from '../../providers/github-users';
 
 /*
   Generated class for the Repos page.
@@ -13,7 +15,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ReposPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+    reposits: Repo[];
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private githubRepos: GithubUsers) {
+        githubRepos.loadRepos().subscribe(reposits =>{
+          console.log(reposits);
+          this.reposits = reposits;
+        });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReposPage');
