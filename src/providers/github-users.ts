@@ -49,4 +49,6 @@ export class GithubUsers {
         return this.http.get(`${this.githubApiUrl}/repositories`)
             .map(res => <Repo[]>res.json());
     }
+
+
 }
