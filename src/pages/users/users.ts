@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, LoadingController} from 'ionic-angular';
 import { GithubUsers } from '../../providers/github-users';
 import { User } from '../../models/users';
 import { UserDetailsPage } from '../../pages/user-details/user-details';
@@ -19,11 +19,20 @@ export class UsersPage {
     users: User[];
     originalUsers: User[];
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private githubUsers: GithubUsers) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private githubUsers: GithubUsers, private loadingCtrl: LoadingController) {
+        // Create the popup
+        let loadingPopup = this.loadingCtrl.create({
+            content: 'Loading...'
+        });
+
+        // Show the popup
+        loadingPopup.present();
+
         githubUsers.load().subscribe(users =>{
             // console.log(users)
             this.users = users;
             this.originalUsers = users;
+            loadingPopup.dismiss(); //Dismiss popup
         });
 
         githubUsers.searchUsers('scotch').subscribe(users => {
